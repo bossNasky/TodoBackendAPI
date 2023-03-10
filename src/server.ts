@@ -1,7 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
+import { connectWithDatabase } from "./db/connect";
 
 dotenv.config({ path: "./src/config/.env" });
+
+connectWithDatabase();
 
 const application = express();
 
