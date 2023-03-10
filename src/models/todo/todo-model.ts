@@ -9,8 +9,8 @@ const todoSchema = new Schema<Todo>({
   status: {
     type: String,
     enum: {
-      values: ["active", "finished"],
-      message: "Todo status only can be active or finished!",
+      values: ["active", "completed"],
+      message: "Todo status only can be active or completed!",
     },
     default: "active",
     required: [true, "Todo status i required!"],
