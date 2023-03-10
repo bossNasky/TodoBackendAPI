@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Todo } from "../models/todo/todo-model";
 import expressAsyncHandler from "express-async-handler";
+import { CustomError } from "../features/CustomError";
 
 const getAllTodos = expressAsyncHandler(async function (
   req: Request,
@@ -43,7 +44,7 @@ const updateTodo = expressAsyncHandler(async function (
   });
 
   if (!todo) {
-    return next("No todo with that ID");
+    return next(new CustomError("No found todo with that ID", 404));
   }
 
   res.status(200).send({
@@ -63,7 +64,7 @@ const deleteTodo = expressAsyncHandler(async function (
   const todo = await Todo.findByIdAndDelete(id);
 
   if (!todo) {
-    return next("No todo with that ID");
+    return next(new CustomError("No found todo with that ID", 404));
   }
 
   res.status(204).send({
