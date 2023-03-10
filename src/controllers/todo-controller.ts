@@ -2,13 +2,15 @@ import { Request, Response, NextFunction } from "express";
 import { Todo } from "../models/todo/todo-model";
 import expressAsyncHandler from "express-async-handler";
 import { CustomError } from "../features/CustomError";
+import { APIFeatures } from "../features/APIFeatures";
 
 const getAllTodos = expressAsyncHandler(async function (
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  const todos = await Todo.find({});
+  const feature = new APIFeatures(Todo.find(), req.query).filter();
+  const todos = await feature.query;
 
   res.status(200).send({
     status: "success",
