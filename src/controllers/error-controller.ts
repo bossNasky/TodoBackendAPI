@@ -1,6 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../features/CustomError";
 
+const notFound = function (req: Request, res: Response, next: NextFunction) {
+  return next(
+    new CustomError(`Can't find ${req.originalUrl} on this server!`, 404)
+  );
+};
+
 const handleCastErrorDB = function (err: CustomError) {
   const message = `Invalid ${err.path}: ${err.value}.`;
   return new CustomError(message, 400);
@@ -36,12 +42,20 @@ const globalErrorMiddleware = function (
   next: NextFunction
 ) {
   let error = { ...err };
+  let isChangedError = false;
   if (err.name === "CastError") {
+    isChangedError = true;
     error = handleCastErrorDB(error);
   }
-  if (error.code === 11000) error = handleDuplicateFieldsDB(error);
-  if (err.name === "ValidationError") error = handleValidationErrorDB(error);
-  sendError(error, res);
+  if (error.code === 11000) {
+    isChangedError = true;
+    error = handleDuplicateFieldsDB(error);
+  }
+  if (err.name === "ValidationError") {
+    isChangedError = true;
+    error = handleValidationErrorDB(error);
+  }
+  sendError(isChangedError ? error : err, res);
 };
 
-export { globalErrorMiddleware };
+export { globalErrorMiddleware, notFound };
