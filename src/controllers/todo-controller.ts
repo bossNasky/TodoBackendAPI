@@ -4,6 +4,12 @@ import expressAsyncHandler from "express-async-handler";
 import { CustomError } from "../features/CustomError";
 import { APIFeatures } from "../features/APIFeatures";
 
+/*
+  --- @desc  Get all todos
+  --- @route GET /api/v1/todos
+  --- @access Public
+*/
+
 const getAllTodos = expressAsyncHandler(async function (
   req: Request,
   res: Response,
@@ -20,6 +26,16 @@ const getAllTodos = expressAsyncHandler(async function (
   });
 });
 
+/*
+  --- @desc  Create new todo
+  --- @route POST /api/v1/todos
+  --- @access Public
+  --- @data  {
+          title:string;
+          status:"active" | "completed"
+        }
+*/
+
 const createNewTodo = expressAsyncHandler(async function (
   req: Request,
   res: Response,
@@ -33,6 +49,18 @@ const createNewTodo = expressAsyncHandler(async function (
     },
   });
 });
+
+/*
+  --- @desc  Update a todo
+  --- @route PATCH /api/v1/todos/id
+  --- @access Public
+  --- @data
+        id:Mongoose.ObjectID
+        optional : {
+          title:string;
+          status:"active" | "completed"
+        }
+*/
 
 const updateTodo = expressAsyncHandler(async function (
   req: Request,
@@ -56,6 +84,14 @@ const updateTodo = expressAsyncHandler(async function (
     },
   });
 });
+
+/*
+  --- @desc  Delete a todo
+  --- @route DELETE /api/v1/todos/id
+  --- @access Public
+  --- @data
+        id:Mongoose.ObjectID
+*/
 
 const deleteTodo = expressAsyncHandler(async function (
   req: Request,

@@ -1,13 +1,9 @@
-import { connection } from "mongoose";
 import request from "supertest";
 import dotenv from "dotenv";
 import { application } from "../app";
 import { connectWithDatabase, disconnectWithDatabase } from "../db/connect";
-import { Server } from "node:http";
 
 dotenv.config({ path: "./src/config/.env" });
-
-let server: Server;
 
 beforeEach(async () => {
   await connectWithDatabase();
@@ -129,7 +125,7 @@ describe("DELETE /api/v1/todos/:id", () => {
     expect(response.statusCode).toBe(204);
   });
   it("Should return a error when provided valid id", async () => {
-    const id = "640c622aa66ee21837fbb573";
+    const id = "640c622aa66ee21837fbb570";
     const response = await request(application).delete(`/api/v1/todos/${id}`);
     expect(response.statusCode).toBe(404);
     expect(response.body.message).toBe("No found todo with that ID");
