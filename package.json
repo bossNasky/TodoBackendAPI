@@ -4,7 +4,7 @@
   "description": "Todo backend rest api",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --detectOpenHandles",
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --watch",
     "start-server:dev": "nodemon ./src/server.ts --watch"
   },
   "author": "",

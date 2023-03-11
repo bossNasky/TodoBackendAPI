@@ -1,4 +1,4 @@
-import { connect } from "mongoose";
+import { connect, connection } from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config({ path: "./src/config/.env" });
@@ -19,4 +19,15 @@ const connectWithDatabase = async function () {
   }
 };
 
-export { connectWithDatabase };
+const disconnectWithDatabase = async function () {
+  try {
+    await connection.close();
+  } catch (err) {
+    if (err instanceof Error) {
+      console.log(`Error : ${err.message}`);
+    }
+    process.exit(0);
+  }
+};
+
+export { connectWithDatabase, disconnectWithDatabase };
