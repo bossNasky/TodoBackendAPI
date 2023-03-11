@@ -6,7 +6,6 @@
      Todo API builded with Express 🚀🚀🚀
     <br />
     <br />
-    <a href="https://sign-up-form-mm1rymkfp-bossnasky.vercel.app/">View Demo</a>
   </p>
 </div>
 
@@ -74,6 +73,15 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    npm run test
    ```
+ 5. Setup a env config.
+  ```sh
+   cd src
+   mkdir config
+   create .env
+   set a variable MONGO_ATLAS_URL = YOUR_URL_ATLAS_DB (change password to <PASSWORD>!)
+   set a variable MONGO_ATLAS_PASSWORD = YOUR_URL_ATLAS_PASSWORD
+   set a variable SERVER_PORT = 3000
+  ```
 ### API_ROUTES
 
 #### /api/v1/todos
